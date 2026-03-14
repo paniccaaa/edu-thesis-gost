@@ -1,0 +1,23 @@
+В приложении собраны минимальные шаблоны математических конструкций, использованных
+в главах 1 и 2. Блок можно копировать в собственный текст с заменой обозначений.
+
+\begin{lstlisting}[language={[LaTeX]TeX},texcsstyle=*\color{lstKeyword},alsoletter={\\},morekeywords={begin,end,chapter,section,subsection,label,ref,eqref,caption,includegraphics},caption={Базовые шаблоны формул},label={lst:app-a-formulas}]
+\begin{equation}
+  y = kx + b,
+  \label{eq:sample-linear}
+\end{equation}
+
+\begin{align}
+  x_{norm} &= \frac{x - x_{\min}}{x_{\max} - x_{\min}}, \label{eq:sample-a} \\
+  score &= 0.6 x_{norm} + 0.4 q. \label{eq:sample-b}
+\end{align}
+
+\begin{equation}
+  f(x)=
+  \begin{cases}
+    0, & x < 0, \\
+    1, & x \ge 0.
+  \end{cases}
+  \label{eq:sample-case}
+\end{equation}
+\end{lstlisting}

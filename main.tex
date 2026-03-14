@@ -1,0 +1,113 @@
+\documentclass[
+  degree=bachelor,
+  language=ru-en,
+  bibstyle=gost-numeric
+]{gostvkr-lua}
+
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{upquote}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\sisetup{
+  output-decimal-marker={,},
+  group-separator={\,},
+  group-minimum-digits=4
+}
+
+\newcommand{\codeFontsDir}{fonts/fira-code/}
+\newcommand{\requireCodeFont}[1]{%
+  \IfFileExists{\codeFontsDir#1}{}{%
+    \PackageError{main}{Не найден обязательный файл кодового шрифта: \codeFontsDir#1}{Скопируйте файлы Fira Code в локальную папку fonts/fira-code/.}%
+  }%
+}
+\requireCodeFont{FiraCode-Regular.ttf}
+\requireCodeFont{FiraCode-Medium.ttf}
+\requireCodeFont{FiraCode-Bold.ttf}
+\requireCodeFont{FiraCode-Retina.ttf}
+
+\newfontfamily\codeFont[
+  Path=\codeFontsDir,
+  Extension=.ttf,
+  UprightFont=FiraCode-Regular,
+  BoldFont=FiraCode-Bold,
+  ItalicFont=FiraCode-Retina,
+  BoldItalicFont=FiraCode-Bold,
+  Scale=0.92,
+  RawFeature={-calt}
+]{FiraCode-Regular}
+
+\definecolor{lstBg}{HTML}{F8FAFD}
+\definecolor{lstFrame}{HTML}{CFD7E3}
+\definecolor{lstKeyword}{HTML}{0B4F9C}
+\definecolor{lstComment}{HTML}{5C6B7A}
+\definecolor{lstString}{HTML}{8A3B12}
+\definecolor{lstNumber}{HTML}{7A8794}
+
+\lstset{
+  language=Python,
+  basicstyle=\small\codeFont\color{black},
+  keywordstyle=\bfseries\color{lstKeyword},
+  commentstyle=\itshape\color{lstComment},
+  stringstyle=\color{lstString},
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\scriptsize\codeFont\color{lstNumber},
+  numbersep=8pt,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{lstFrame},
+  backgroundcolor=\color{lstBg},
+  xleftmargin=6pt,
+  xrightmargin=6pt,
+  keepspaces=true,
+  columns=fullflexible,
+  breaklines=true,
+  breakatwhitespace=false,
+  upquote=true
+}
+\renewcommand{\lstlistingname}{Листинг}
+\renewcommand{\lstlistlistingname}{Список листингов}
+\floatname{algorithm}{Алгоритм}
+\renewcommand{\listalgorithmname}{Список алгоритмов}
+
+\input{config/metadata.tex}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\maketitlepage
+
+\tableofcontents
+
+\makeintroduction
+\input{content/01-introduction}
+
+\chapter{Аналитическая часть}
+\input{content/02-chapter-1}
+
+\chapter{Проектная часть}
+\input{content/03-chapter-2}
+
+\makeconclusion
+\input{content/04-conclusion}
+
+\printgostbibliography
+
+\makeappendicesblock
+\appendixchapterfirst{А}{Шаблоны математических окружений}
+\input{content/05-appendix-a}
+\appendixchapternext{Б}{Шаблоны рисунков и таблиц}
+\input{content/06-appendix-b}
+\appendixchapternext{В}{Шаблоны листингов и алгоритмов}
+\input{content/07-appendix-c}
+\appendixchapternext{Г}{Чеклист перед финальной сборкой}
+\input{content/08-appendix-d}
+
+\end{document}

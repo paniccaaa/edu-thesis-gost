@@ -1,0 +1,25 @@
+Данный блок показывает минимально устойчивые шаблоны для включения кода и псевдокода
+в документ без использования shell-escape.
+
+\begin{lstlisting}[caption={Шаблон листинга исходного кода},label={lst:app-c-listing}]
+def normalize(value, low, high):
+    if high == low:
+        return 0.0
+    return (value - low) / (high - low)
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX},texcsstyle=*\color{lstKeyword},alsoletter={\\},morekeywords={begin,end,chapter,section,subsection,label,ref,eqref,caption,includegraphics},caption={Шаблон алгоритма на algorithmicx},label={lst:app-c-algorithm}]
+\begin{algorithm}[tbp]
+  \caption{Пример алгоритма}
+  \label{alg:sample}
+  \begin{algorithmic}[1]
+    \Require Входной массив data
+    \Ensure Отсортированный массив
+    \State Инициализировать структуру результата
+    \ForAll{элемент в data}
+      \State Обновить состояние
+    \EndFor
+    \State \Return result
+  \end{algorithmic}
+\end{algorithm}
+\end{lstlisting}

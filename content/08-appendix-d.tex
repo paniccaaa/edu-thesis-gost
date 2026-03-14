@@ -1,0 +1,15 @@
+Перед отправкой работы на предзащиту рекомендуется пройти следующий чеклист:
+\begin{enumerate}
+  \item Все объекты имеют подписи и ссылки в тексте (`eq:`, `fig:`, `tab:`, `lst:`, `alg:`).
+  \item В логах отсутствуют предупреждения `Undefined` и `LaTeX Warning`.
+  \item Подписи рисунков, таблиц, листингов и алгоритмов согласованы по стилю.
+  \item В списке литературы все источники реально процитированы в тексте.
+  \item `make build` и повторный `make build` выполняются без лишних действий.
+\end{enumerate}
+
+Контрольный набор команд:
+\begin{lstlisting}[language=bash,caption={Базовые команды проверки},label={lst:app-d-check}]
+make distclean
+make build
+make check
+\end{lstlisting}

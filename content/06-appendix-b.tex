@@ -1,0 +1,38 @@
+В приложении приведены шаблоны одиночного рисунка, подрисунков и таблицы `booktabs`.
+Все примеры совместимы с текущим классом и не требуют правки типографики.
+
+\begin{lstlisting}[language={[LaTeX]TeX},texcsstyle=*\color{lstKeyword},alsoletter={\\},morekeywords={begin,end,chapter,section,subsection,label,ref,eqref,caption,includegraphics},caption={Шаблон рисунка с подрисунками},label={lst:app-b-figures}]
+\begin{figure}[tbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{assets/images/fig-02-social-feed-architecture.png}
+    \caption{Первый сценарий}
+    \label{fig:sample-a}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{assets/images/fig-03-web-crawler-architecture.png}
+    \caption{Второй сценарий}
+    \label{fig:sample-b}
+  \end{subfigure}
+  \caption{Составной рисунок}
+  \label{fig:sample-combined}
+\end{figure}
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX},texcsstyle=*\color{lstKeyword},alsoletter={\\},morekeywords={begin,end,chapter,section,subsection,label,ref,eqref,caption,includegraphics},caption={Шаблон таблицы с booktabs и siunitx},label={lst:app-b-table}]
+\begin{table}[tbp]
+  \centering
+  \caption{Контрольные метрики}
+  \label{tab:sample-metrics}
+  \begin{tabular}{@{}lS[table-format=2.2]S[table-format=1.2]@{}}
+    \toprule
+    Метрика & {Факт} & {Порог} \\
+    \midrule
+    Accuracy & 95.20 & 0.90 \\
+    Recall   & 91.40 & 0.85 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{lstlisting}

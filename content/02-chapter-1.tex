@@ -1,0 +1,150 @@
+В этой главе материал идет по ступеням: сначала базовые формулы, затем рисунки и таблицы,
+после чего все элементы объединяются в один связный кейс. Если вы только начинаете работу
+с шаблоном, повторяйте примеры в том же порядке и сверяйтесь с методичкой
+`docs/listings-syntax-guide.md`.
+
+\section{Демонстрация формул}
+\subsection{Постановка и базовая модель}
+В разделе последовательно показаны базовые и средние математические конструкции:
+одиночная формула, многострочные выражения, кусочно-заданная функция, блок `gather`
+и матричная запись.
+
+Базовая оценка пропускной способности задается формулой~\eqref{eq:ch1-throughput}:
+\begin{equation}
+  T = \frac{N_{\text{ok}}}{t_{\text{obs}}},
+  \label{eq:ch1-throughput}
+\end{equation}
+где $N_{\text{ok}}$ --- число корректно обработанных задач, $t_{\text{obs}}$ ---
+длительность наблюдаемого интервала.
+
+\subsection{Нормализация и интегральная оценка}
+Нормализация и интегральная оценка качества приведены в формулах~\eqref{eq:ch1-normalization}
+и~\eqref{eq:ch1-integral}:
+\begin{align}
+  R_{\text{norm}} &= \frac{R - R_{\min}}{R_{\max} - R_{\min}},
+  \label{eq:ch1-normalization} \\
+  S_{\text{integral}} &= 0.50\,R_{\text{norm}} + 0.30\,Q + 0.20\,U.
+  \label{eq:ch1-integral}
+\end{align}
+
+\subsection{Классификация и группировка выражений}
+Классификация риска в зависимости от порога задается функцией~\eqref{eq:ch1-risk}:
+\begin{equation}
+  \operatorname{Risk}(x)=
+  \begin{cases}
+    \text{низкий}, & x < 0.30, \\
+    \text{средний}, & 0.30 \le x < 0.70, \\
+    \text{высокий}, & x \ge 0.70.
+  \end{cases}
+  \label{eq:ch1-risk}
+\end{equation}
+
+Для демонстрации многострочной группировки без выравнивания по знакам используются формулы~\eqref{eq:ch1-gather-a}--\eqref{eq:ch1-gather-c}:
+\begin{gather}
+  Q_1 = \frac{n_1}{N}, \label{eq:ch1-gather-a} \\
+  Q_2 = \frac{n_2}{N}, \label{eq:ch1-gather-b} \\
+  Q_3 = \frac{n_3}{N}. \label{eq:ch1-gather-c}
+\end{gather}
+
+\subsection{Матричное представление}
+Матрица переходов состояний формируется по выражению~\eqref{eq:ch1-transition}:
+\begin{equation}
+  P =
+  \begin{bmatrix}
+    0.70 & 0.20 & 0.10 \\
+    0.15 & 0.70 & 0.15 \\
+    0.05 & 0.25 & 0.70
+  \end{bmatrix}.
+  \label{eq:ch1-transition}
+\end{equation}
+
+\section{Демонстрация рисунков}
+\subsection{Одиночный рисунок}
+Одиночный рисунок приведен на рисунке~\ref{fig:ch1-workflow}; он иллюстрирует
+архитектуру учебной системы публикации текста.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{assets/images/fig-01-pastebin-architecture.png}
+  \caption{Архитектура публикации контента в распределенной среде}
+  \label{fig:ch1-workflow}
+\end{figure}
+
+\subsection{Составной рисунок}
+Составной рисунок с подрисунками показан на рисунке~\ref{fig:ch1-subfig}.
+\begin{figure}[tbp]
+  \centering
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{assets/images/fig-02-social-feed-architecture.png}
+    \caption{Контур ленты и поиска}
+    \label{fig:ch1-sub-current}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{assets/images/fig-03-web-crawler-architecture.png}
+    \caption{Контур обхода и индексации}
+    \label{fig:ch1-sub-target}
+  \end{subfigure}
+  \caption{Составной рисунок для сравнения архитектурных контуров}
+  \label{fig:ch1-subfig}
+\end{figure}
+
+\section{Демонстрация таблиц}
+\subsection{Таблица базовых метрик}
+Таблица~\ref{tab:ch1-metrics} демонстрирует сочетание `booktabs` и `siunitx`
+для аккуратного выравнивания числовых значений.
+\begin{table}[tbp]
+  \centering
+  \caption{Базовые метрики контрольного запуска}
+  \label{tab:ch1-metrics}
+  \begin{tabular}{@{}l S[table-format=2.2] S[table-format=1.2]@{}}
+    \toprule
+    Показатель & {Факт} & {Порог} \\
+    \midrule
+    Полнота покрытия тестами, \% & 92.40 & 0.90 \\
+    Доля успешных сборок, \% & 98.70 & 0.95 \\
+    Доля исправленных замечаний, \% & 88.10 & 0.80 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Матрица проверок}
+Таблица~\ref{tab:ch1-checks} показывает объединение ячеек и многострочные заголовки.
+\begin{table}[tbp]
+  \centering
+  \caption{Матрица проверок по категориям ошибок}
+  \label{tab:ch1-checks}
+  \small
+  \begin{tabular}{@{}p{0.18\linewidth}p{0.42\linewidth}p{0.16\linewidth}p{0.16\linewidth}@{}}
+    \toprule
+    \multirow{2}{*}{Категория} & \multirow{2}{*}{Проверка} & \multicolumn{2}{c}{Результат} \\
+    \cmidrule(l){3-4}
+    & & \makecell[c]{До\\исправления} & \makecell[c]{После\\исправления} \\
+    \midrule
+    \multirow{2}{*}{Ссылки}
+    & \makecell[l]{Неопределенные\\перекрестные ссылки} & 6 & 0 \\
+    & Некорректные подписи рисунков & 3 & 0 \\
+    \midrule
+    \multirow{2}{*}{Верстка}
+    & \makecell[l]{Разрывы строк в\\заголовках глав} & 4 & 0 \\
+    & Несогласованные отступы окружений & 5 & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Композитный кейс 1: связка формула--рисунок--таблица}
+\subsection{Сквозная связка элементов}
+В учебном сценарии аналитическая оценка строится по формуле~\eqref{eq:ch1-integral},
+структура процесса подтверждается рисунком~\ref{fig:ch1-workflow}, а контрольные
+числа фиксируются в таблице~\ref{tab:ch1-metrics}. Такой формат удобен для ВКР,
+поскольку каждая сущность имеет отдельный номер, подпись и ссылку из текста.
+Использованные диаграммы взяты из открытого набора по системному проектированию~\cite{sdp-pastebin,sdp-twitter,sdp-crawler}.
+
+\subsection{Практическая последовательность оформления}
+При формировании пояснительной записки рекомендуется:
+\begin{enumerate}
+  \item сначала сформулировать показатель в виде формулы;
+  \item затем визуализировать процесс на рисунке;
+  \item после этого привести измеримые данные в таблице;
+  \item завершить блок ссылкой на источник методики~\cite{latexcompanion}.
+\end{enumerate}
