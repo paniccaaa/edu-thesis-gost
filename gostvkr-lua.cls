@@ -150,15 +150,13 @@
 \onehalfspacing
 \raggedbottom
 \fancyhf{}
-\fancyfoot[C]{\thepage}
+\fancyhead[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
 \pagestyle{fancy}
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyfoot[C]{\thepage}
+  \fancyhead[C]{\thepage}
   \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
 }
 \setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0pt}
