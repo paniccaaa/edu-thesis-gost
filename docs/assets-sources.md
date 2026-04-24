@@ -20,6 +20,7 @@
 |---|---|---|---|---|
 | `fig-04-tsunami-classes.png` | `docs/diagrams/classes.puml` | Адаменко С.С. | MIT | 2026-04-21 |
 | `fig-05-tsunami-sequence.png` | `docs/diagrams/sequence.puml` | Адаменко С.С. | MIT | 2026-04-21 |
+| `fig-06-tsunami-component.png` | `docs/diagrams/component_ru.puml` | Адаменко С.С. | MIT | 2026-04-24 |
 
 ## Нормативная ссылка на лицензию источника
 
