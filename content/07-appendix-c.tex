@@ -41,11 +41,18 @@ func TestRunAttack_BasicSuccess(t *testing.T) {
         t.Error("expected 200 status codes to be counted")
     }
     if metrics.TotalRequests != metrics.Successes {
-        t.Errorf("total=%d successes=%d",
+        t.Errorf("all requests should be successful: total=%d successes=%d",
             metrics.TotalRequests, metrics.Successes)
     }
     if elapsed == 0 {
         t.Error("expected elapsed time > 0")
+    }
+    if metrics.MaxLatency == 0 {
+        t.Error("expected MaxLatency to be recorded")
+    }
+    if metrics.MinLatency >= metrics.MaxLatency && metrics.TotalRequests > 1 {
+        t.Errorf("expected MinLatency < MaxLatency, got min=%v max=%v",
+            metrics.MinLatency, metrics.MaxLatency)
     }
 }
 
@@ -71,8 +78,12 @@ func TestRunAttack_TimeoutClassification(t *testing.T) {
         t.Errorf("expected 0 successes, got %d", metrics.Successes)
     }
     if metrics.ErrorTypes[attack.ErrorTypeTimeout] == 0 {
-        t.Errorf("expected ErrorTypeTimeout, got: %v",
-            metrics.ErrorTypes)
+        t.Errorf("expected ErrorTypeTimeout, got: %v", metrics.ErrorTypes)
+    }
+    for errType, count := range metrics.ErrorTypes {
+        if errType != attack.ErrorTypeTimeout && count > 0 {
+            t.Errorf("unexpected error type %q: %d", errType, count)
+        }
     }
 }
 
@@ -91,7 +102,10 @@ func TestRunAttack_MetricsAccuracy(t *testing.T) {
             t.Error("expected Successes > 0 for /status/201")
         }
         if metrics.Failures > 0 {
-            t.Errorf("expected 0 Failures, got %d", metrics.Failures)
+            t.Errorf("expected 0 Failures for /status/201, got %d", metrics.Failures)
+        }
+        if metrics.StatusCodes[201] == 0 {
+            t.Error("expected 201 to be tracked in StatusCodes")
         }
     })
     t.Run("5xx is a failure", func(t *testing.T) {
@@ -107,8 +121,11 @@ func TestRunAttack_MetricsAccuracy(t *testing.T) {
         if metrics.Failures == 0 {
             t.Error("expected Failures > 0 for /status/500")
         }
+        if metrics.StatusCodes[500] == 0 {
+            t.Error("expected 500 to be tracked in StatusCodes")
+        }
         if len(metrics.ErrorTypes) > 0 {
-            t.Errorf("HTTP 500 must not produce ErrorType: %v",
+            t.Errorf("HTTP 500 should not produce ErrorType entries, got: %v",
                 metrics.ErrorTypes)
         }
     })

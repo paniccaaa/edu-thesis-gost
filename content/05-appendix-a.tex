@@ -135,6 +135,18 @@ func (s *TestSession) GetStatus() SessionStatus {
     return s.Status
 }
 
+func (s *TestSession) SetMetrics(metrics *attack.GlobalMetrics) {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    s.Metrics = metrics
+}
+
+func (s *TestSession) GetMetrics() *attack.GlobalMetrics {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+    return s.Metrics
+}
+
 func (s *TestSession) IsRunning() bool {
     s.mu.RLock()
     defer s.mu.RUnlock()
