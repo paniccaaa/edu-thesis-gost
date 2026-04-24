@@ -1,23 +1,143 @@
-В приложении собраны минимальные шаблоны математических конструкций, использованных
-в главах 1 и 2. Блок можно копировать в собственный текст с заменой обозначений.
+В приложении представлен полный исходный код файла \texttt{cmd/server/session.go},
+реализующего конечный автомат управления жизненным циклом тестовой сессии.
+Код содержит объявления константных состояний, структуры \texttt{TestSession}
+и \texttt{SessionManager}, а также методы переходов между состояниями.
 
-\begin{lstlisting}[language={[LaTeX]TeX},texcsstyle=*\color{lstKeyword},alsoletter={\\},morekeywords={begin,end,chapter,section,subsection,label,ref,eqref,caption,includegraphics},caption={Базовые шаблоны формул},label={lst:app-a-formulas}]
-\begin{equation}
-  y = kx + b,
-  \label{eq:sample-linear}
-\end{equation}
+\begin{lstlisting}[language=Go,caption={Исходный код \texttt{cmd/server/session.go} --- конечный автомат тестовой сессии},label={lst:app-session}]
+package server
 
-\begin{align}
-  x_{norm} &= \frac{x - x_{\min}}{x_{\max} - x_{\min}}, \label{eq:sample-a} \\
-  score &= 0.6 x_{norm} + 0.4 q. \label{eq:sample-b}
-\end{align}
+import (
+    "sync"
+    "time"
 
-\begin{equation}
-  f(x)=
-  \begin{cases}
-    0, & x < 0, \\
-    1, & x \ge 0.
-  \end{cases}
-  \label{eq:sample-case}
-\end{equation}
+    "github.com/paniccaaa/tsunami/internal/attack"
+    "github.com/paniccaaa/tsunami/internal/grpcattack"
+)
+
+type SessionStatus string
+
+const (
+    StatusIdle      SessionStatus = "idle"
+    StatusRunning   SessionStatus = "running"
+    StatusCompleted SessionStatus = "completed"
+    StatusStopped   SessionStatus = "stopped"
+    StatusError     SessionStatus = "error"
+)
+
+type TestSession struct {
+    ID          string
+    Status      SessionStatus
+    Protocol    string
+    Config      *attack.AttackConfig
+    GRPCConfig  *grpcattack.Config
+    Metrics     *attack.GlobalMetrics
+    StartTime   time.Time
+    EndTime     time.Time
+    ElapsedTime time.Duration
+    StopCh      chan struct{}
+    Error       error
+    mu          sync.RWMutex
+}
+
+type SessionManager struct {
+    current *TestSession
+    mu      sync.RWMutex
+}
+
+func NewSessionManager() *SessionManager {
+    return &SessionManager{}
+}
+
+func (sm *SessionManager) GetCurrent() *TestSession {
+    sm.mu.RLock()
+    defer sm.mu.RUnlock()
+    return sm.current
+}
+
+func (sm *SessionManager) CreateSession(
+    id string, cfg *attack.AttackConfig,
+) *TestSession {
+    return sm.createSession(id, "http", cfg, nil)
+}
+
+func (sm *SessionManager) CreateGRPCSession(
+    id string, cfg *grpcattack.Config,
+) *TestSession {
+    return sm.createSession(id, "grpc", nil, cfg)
+}
+
+func (sm *SessionManager) createSession(
+    id, protocol string,
+    httpCfg *attack.AttackConfig,
+    grpcCfg *grpcattack.Config,
+) *TestSession {
+    sm.mu.Lock()
+    defer sm.mu.Unlock()
+    if sm.current != nil && sm.current.Status == StatusRunning {
+        sm.current.Stop()
+    }
+    session := &TestSession{
+        ID:         id,
+        Status:     StatusIdle,
+        Protocol:   protocol,
+        Config:     httpCfg,
+        GRPCConfig: grpcCfg,
+        StartTime:  time.Now(),
+        StopCh:     make(chan struct{}),
+    }
+    sm.current = session
+    return session
+}
+
+func (s *TestSession) Start() {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    s.Status = StatusRunning
+    s.StartTime = time.Now()
+}
+
+func (s *TestSession) Stop() {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    if s.Status == StatusRunning {
+        select {
+        case <-s.StopCh:
+        default:
+            close(s.StopCh)
+        }
+        s.Status = StatusStopped
+        s.EndTime = time.Now()
+    }
+}
+
+func (s *TestSession) Complete(
+    metrics *attack.GlobalMetrics, elapsed time.Duration,
+) {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    s.Status = StatusCompleted
+    s.Metrics = metrics
+    s.ElapsedTime = elapsed
+    s.EndTime = time.Now()
+}
+
+func (s *TestSession) SetError(err error) {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    s.Status = StatusError
+    s.Error = err
+    s.EndTime = time.Now()
+}
+
+func (s *TestSession) GetStatus() SessionStatus {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+    return s.Status
+}
+
+func (s *TestSession) IsRunning() bool {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+    return s.Status == StatusRunning
+}
 \end{lstlisting}

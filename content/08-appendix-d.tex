@@ -1,15 +1,51 @@
-Перед отправкой работы на предзащиту рекомендуется пройти следующий чеклист:
-\begin{enumerate}
-  \item Все объекты имеют подписи и ссылки в тексте (`eq:`, `fig:`, `tab:`, `lst:`, `alg:`).
-  \item В логах отсутствуют предупреждения `Undefined` и `LaTeX Warning`.
-  \item Подписи рисунков, таблиц, листингов и алгоритмов согласованы по стилю.
-  \item В списке литературы все источники реально процитированы в тексте.
-  \item `make build` и повторный `make build` выполняются без лишних действий.
-\end{enumerate}
+В приложении представлен пример JSON-отчёта, экспортируемого инструментом Tsunami
+по завершении нагрузочного теста.
+Отчёт соответствует структуре \texttt{MetricsReport} из пакета \texttt{internal/attack}
+и содержит конфигурацию теста, сводную статистику, перцентили задержки,
+распределение HTTP-статусов и разбивку ошибок по типам.
 
-Контрольный набор команд:
-\begin{lstlisting}[language=bash,caption={Базовые команды проверки},label={lst:app-d-check}]
-make distclean
-make build
-make check
+\begin{lstlisting}[language={},caption={Пример JSON-отчёта результатов нагрузочного теста},label={lst:app-report}]
+{
+  "config": {
+    "url": "https://example.com/api/v1/status",
+    "method": "GET",
+    "duration": "30s",
+    "timeout": "10s",
+    "workers": 50,
+    "connections": 100,
+    "rps": 500
+  },
+  "summary": {
+    "total_requests": 14987,
+    "successful_requests": 14952,
+    "failed_requests": 35,
+    "total_elapsed_time": "30s",
+    "average_latency": "48ms",
+    "min_latency": "12ms",
+    "max_latency": "1204ms",
+    "throughput_rps": 499.57,
+    "target_rps": 500,
+    "bytes_sent": 0,
+    "bytes_received": 10840264
+  },
+  "latency_percentiles": {
+    "p50": "41ms",
+    "p90": "87ms",
+    "p95": "132ms",
+    "p99": "389ms"
+  },
+  "status_codes": {
+    "200": 14952,
+    "429": 22,
+    "503": 13
+  },
+  "error_breakdown": {
+    "timeout": 35,
+    "connection_refused": 0,
+    "dns": 0,
+    "tls": 0,
+    "other": 0
+  },
+  "timestamp": "2026-04-22T14:35:07+03:00"
+}
 \end{lstlisting}
