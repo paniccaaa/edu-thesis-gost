@@ -64,7 +64,7 @@ Vegeta поддерживает только протокол HTTP и не им�
 
 Результаты сравнительного анализа представлены в таблице~\ref{tab:ch1-tools}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Сравнительный анализ инструментов нагрузочного тестирования}
   \label{tab:ch1-tools}
@@ -78,7 +78,6 @@ Vegeta поддерживает только протокол HTTP и не им�
     k6             & Go + JS        & HTTP, WS, gRPC  & CLI       & Node.js (скрипты) & Grafana Cloud \\
     Vegeta         & Go             & HTTP            & CLI       & Нет               & Отсутствует \\
     hey            & Go             & HTTP            & CLI       & Нет               & Отсутствует \\
-    \textbf{Tsunami} & \textbf{Go}  & \textbf{HTTP, gRPC} & \textbf{CLI + веб} & \textbf{Нет} & \textbf{Встроенный} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -148,7 +147,7 @@ k6 поддерживает gRPC и имеет интеграцию с Grafana, 
 Диаграмма прецедентов, отражающая полный перечень вариантов использования
 обеих категорий, представлена на рисунке~\ref{fig:ch1-usecase}.
 
-\begin{figure}[tbp]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.92\linewidth]{assets/images/fig-01-tsunami-usecase.png}
   \caption{Диаграмма прецедентов системы Tsunami}
@@ -295,7 +294,7 @@ WebSocket~\cite{gorilla}, используется в тысячах произ�
 
 Итоговый технологический стек представлен в таблице~\ref{tab:ch1-stack}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Технологический стек инструмента Tsunami}
   \label{tab:ch1-stack}
@@ -319,6 +318,7 @@ WebSocket~\cite{gorilla}, используется в тысячах произ�
 \end{table}
 
 
+\clearpage
 \section{Проектирование архитектуры системы}
 
 На основе сформулированных требований и выбранного технологического стека была
@@ -366,13 +366,6 @@ HTTP-запросов при фиксированном числе горути�
 диспетчер с ограничителем скорости, пул горутин-воркеров и горутина-коллектор.
 Взаимодействие этих компонентов представлено на рисунке~\ref{fig:ch1-workerpool}.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{assets/images/fig-02-tsunami-workerpool.png}
-  \caption{Схема взаимодействия компонентов движка нагрузочного тестирования}
-  \label{fig:ch1-workerpool}
-\end{figure}
-
 Как показано на рисунке~\ref{fig:ch1-workerpool}, диспетчер формирует
 равномерный поток заданий, воркеры выполняют запросы параллельно,
 а коллектор агрегирует результаты без блокировки воркеров.
@@ -391,6 +384,13 @@ $N$ горутин-воркеров одновременно ожидают за
 и накапливает их в структуре \texttt{GlobalMetrics}, защищённой мьютексом.
 Такое разделение ответственности позволяет воркерам не блокироваться на операциях
 агрегации метрик и достигать высокой пропускной способности.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,height=0.55\textheight,keepaspectratio]{assets/images/fig-02-tsunami-workerpool.png}
+  \caption{Схема взаимодействия компонентов движка нагрузочного тестирования}
+  \label{fig:ch1-workerpool}
+\end{figure}
 
 \subsection*{Структура GlobalMetrics и расчёт перцентилей}
 
@@ -460,13 +460,6 @@ $\lceil \cdot \rceil$~--- округление вверх.
 Диаграмма состояний данного автомата, включающая пять состояний
 и переходы между ними, представлена на рисунке~\ref{fig:ch1-statemachine}.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=0.80\linewidth]{assets/images/fig-03-tsunami-statemachine.png}
-  \caption{Диаграмма состояний объекта TestSession}
-  \label{fig:ch1-statemachine}
-\end{figure}
-
 Как видно из рисунка~\ref{fig:ch1-statemachine}, автомат инициализируется
 в состоянии \textbf{Idle} и допускает строго детерминированные переходы:
 каждое состояние имеет не более одного пути к терминальным состояниям
@@ -482,6 +475,13 @@ $\lceil \cdot \rceil$~--- округление вверх.
 Остановка теста реализована через канал \texttt{StopCh} типа \texttt{chan struct{}}.
 Закрытие канала является неблокирующим широковещательным сигналом для всех горутин,
 которые отслеживают его состояние через конструкцию \texttt{select}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\linewidth]{assets/images/fig-03-tsunami-statemachine.png}
+  \caption{Диаграмма состояний объекта TestSession}
+  \label{fig:ch1-statemachine}
+\end{figure}
 
 \subsection*{WebSocket-хаб и стриминг метрик}
 
@@ -503,7 +503,7 @@ $\lceil \cdot \rceil$~--- округление вверх.
 
 HTTP-сервер предоставляет следующие маршруты (таблица~\ref{tab:ch1-api}):
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Эндпоинты REST API инструмента Tsunami}
   \label{tab:ch1-api}

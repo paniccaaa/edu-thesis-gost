@@ -72,7 +72,7 @@ func percentileIndex(sorted []time.Duration, p int) int {
 
 Назначение каждой метрики задержки представлено в таблице~\ref{tab:ch2-percentiles}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Метрики задержки, собираемые движком Tsunami}
   \label{tab:ch2-percentiles}
@@ -98,7 +98,7 @@ func percentileIndex(sorted []time.Duration, p int) int {
 
 Сравнение конфигурационных параметров HTTP- и gRPC-движков приведено в таблице~\ref{tab:ch2-http-grpc}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Сравнение конфигурации HTTP- и gRPC-движков Tsunami}
   \label{tab:ch2-http-grpc}
@@ -125,7 +125,7 @@ func percentileIndex(sorted []time.Duration, p int) int {
 от функций движка и транспортного уровня.
 Диаграмма классов модуля нагрузочного тестирования представлена на рисунке~\ref{fig:classes}.
 
-\begin{figure}[tbp]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth,height=0.60\textheight,keepaspectratio]{assets/images/fig-04-tsunami-classes.png}
   \caption{Диаграмма классов модуля нагрузочного тестирования}
@@ -152,7 +152,7 @@ Cobra обеспечивает декларативное описание ко�
 Каждая из трёх подкоманд специализирована на конкретном сценарии использования; их назначение и ключевые флаги приведены в таблице~\ref{tab:ch2-commands}.
 Архитектурное разделение функциональности на отдельные команды соответствует принципу единственной ответственности и облегчает расширение инструмента новыми транспортными протоколами без модификации существующих обработчиков.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Подкоманды CLI-интерфейса Tsunami}
   \label{tab:ch2-commands}
@@ -223,7 +223,7 @@ var RateRegex = regexp.MustCompile(
 Сервер инициализируется с таймаутами \texttt{ReadTimeout: 15s}, \texttt{WriteTimeout: 15s} и \texttt{IdleTimeout: 60s}, что предотвращает утечку ресурсов при медленных или зависших клиентах.
 Для разработки фронтенда с отдельного порта (Vite dev server) к каждому ответу добавляются CORS-заголовки, разрешающие запросы с \texttt{localhost:3000} и \texttt{localhost:5173}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Эндпоинты REST API сервера Tsunami}
   \label{tab:ch2-api}
@@ -279,7 +279,7 @@ WebSocket-хабом и объектом тестовой сессии разр�
 до получения клиентом финального сообщения о завершении теста.
 Диаграмма последовательности представлена на рисунке~\ref{fig:sequence}.
 
-\begin{figure}[tbp]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth,height=0.60\textheight,keepaspectratio]{assets/images/fig-05-tsunami-sequence.png}
   \caption{Диаграмма последовательности передачи метрик через WebSocket}
@@ -372,7 +372,7 @@ WebSocket-клиент поддерживает авторереконнект: 
 
 Сводная таблица тестовых сценариев представлена в таблице~\ref{tab:ch2-tests}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Тестовые сценарии системы Tsunami}
   \label{tab:ch2-tests}
@@ -438,7 +438,7 @@ brews:
 
 Автоматизация сборки и проверки реализована в двух независимых рабочих процессах, шаги которых приведены в таблице~\ref{tab:ch2-cicd}.
 
-\begin{table}[tbp]
+\begin{table}[h!]
   \centering
   \caption{Шаги CI/CD-пайплайна проекта Tsunami}
   \label{tab:ch2-cicd}
