@@ -187,11 +187,11 @@
 \titleformat{\subsubsection}[block]{\normalfont\bfseries\normalsize}{\thesubsubsection}{1em}{}
 \titlespacing*{\subsubsection}{\parindent}{0.75\baselineskip}{0.5\baselineskip}
 
-% Оглавление всегда на отдельной странице и в центре.
-\renewcommand{\contentsname}{Оглавление}
-\gappto\captionsrussian{\renewcommand{\contentsname}{Оглавление}}
+% Содержание всегда на отдельной странице и в центре.
+\renewcommand{\contentsname}{Содержание}
+\gappto\captionsrussian{\renewcommand{\contentsname}{Содержание}}
 \AtBeginDocument{%
-  \renewcommand{\contentsname}{Оглавление}%
+  \renewcommand{\contentsname}{Содержание}%
   \renewcommand{\tableofcontents}{%
     \clearpage
     \chapter*{\contentsname}
