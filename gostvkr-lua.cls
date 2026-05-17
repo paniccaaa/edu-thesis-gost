@@ -177,11 +177,11 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-\titleformat{\chapter}[block]{\normalfont\bfseries\normalsize\centering}{\chaptername\ \thechapter.}{0.5em}{}
-\titleformat{name=\chapter,numberless}[block]{\normalfont\bfseries\normalsize\centering}{}{0pt}{}
+\titleformat{\chapter}[block]{\normalfont\bfseries\normalsize\centering}{\MakeUppercase{\chaptername}\ \thechapter.}{0.5em}{\MakeUppercase}
+\titleformat{name=\chapter,numberless}[block]{\normalfont\bfseries\normalsize\centering}{}{0pt}{\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{\baselineskip}{\baselineskip}
-\titleformat{\section}[block]{\normalfont\bfseries\normalsize}{\thesection}{1em}{}
-\titlespacing*{\section}{\parindent}{\baselineskip}{0.5\baselineskip}
+\titleformat{\section}[block]{\normalfont\bfseries\normalsize\centering}{\thesection}{1em}{\MakeUppercase}
+\titlespacing*{\section}{0pt}{\baselineskip}{0.5\baselineskip}
 \titleformat{\subsection}[block]{\normalfont\bfseries\normalsize}{\thesubsection}{1em}{}
 \titlespacing*{\subsection}{\parindent}{\baselineskip}{0.5\baselineskip}
 \titleformat{\subsubsection}[block]{\normalfont\bfseries\normalsize}{\thesubsubsection}{1em}{}
@@ -224,6 +224,7 @@
   breaklinks=true
 }
 \urlstyle{same}
+\Urlmuskip=0mu\relax
 
 \edef\gostvkr@biblatexoptions{%
   backend=biber,
@@ -234,6 +235,12 @@
   bibencoding=utf8
 }
 \expandafter\RequirePackage\expandafter[\gostvkr@biblatexoptions]{biblatex}
+
+% Формат даты обращения: «дата обращения: ДД.ММ.ГГГГ» вместо «дата обр. ...»
+\AtEndPreamble{%
+  \DefineBibliographyStrings{russian}{urlseen = {дата обращения}}%
+  \DeclareFieldFormat{urldate}{\mkbibparens{\bibstring{urlseen}\addcolon\space#1}}%
+}
 
 % ----------------------- Данные титульного листа -----------------------------
 % Значения по умолчанию можно переопределить через \gostsetup{...}.
