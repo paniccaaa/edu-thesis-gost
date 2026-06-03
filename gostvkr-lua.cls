@@ -353,8 +353,8 @@
 
       \begin{flushright}
         \begin{minipage}{0.58\textwidth}
-          Обучающегося \gostvkr@course\ курса\par
-          \gostvkr@studyform\ формы обучения\par
+          Обучающегося \underline{\gostvkr@course}\ курса\par
+          \underline{\gostvkr@studyform}\ формы обучения\par
           \gostvkr@fullname\par
           \vspace{\baselineskip}
           Руководитель выпускной квалификационной\par
