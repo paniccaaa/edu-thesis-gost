@@ -48,7 +48,7 @@ rateLimiter := ratelimit.New(cfg.RPS)
 Для вычисления перцентилей задержки используется \textbf{кольцевой буфер} ёмкостью \(\mathit{MaxLatencySamples} = 100\,000\) замеров; при размере \texttt{time.Duration} в 8 байт это соответствует приблизительно 800 КБ памяти независимо от длительности теста.
 По достижении предела новые значения замещают старые по индексу \texttt{latencyIdx}, инкрементируемому по модулю ёмкости буфера; таким образом обеспечивается ограниченное потребление памяти при неограниченном числе запросов.
 
-Перцентили P50, P90, P95 и P99 вычисляются функцией \texttt{CalculateAllPercentiles}.
+Перцентили P50, P90, P95 и P99 вычисляются функцией \texttt{Calculate\-All\-Percentiles}.
 Для экономии ресурсов выполняется однократная сортировка среза (функция \texttt{slices.Sort} с асимптотикой $O(n \log n)$), после чего каждый перцентиль определяется по индексу \(\max\!\left(\lceil p / 100 \cdot N \rceil - 1,\; 0\right)\).
 
 \begin{lstlisting}[caption={Функция \texttt{CalculateAllPercentiles} и вспомогательная \texttt{percentileIndex}},label={lst:percentile}]

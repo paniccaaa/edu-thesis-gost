@@ -82,7 +82,7 @@
 \LoadClass[a4paper,14pt,oneside,openany]{extbook}
 
 % Пакеты типографики и структуры документа.
-\RequirePackage[left=25mm,right=10mm,top=20mm,bottom=20mm,headheight=17pt,headsep=5mm]{geometry}
+\RequirePackage[left=30mm,right=15mm,top=20mm,bottom=20mm,headheight=17pt,headsep=5mm]{geometry}
 \RequirePackage{setspace}
 \RequirePackage{indentfirst}
 \RequirePackage{fontspec}
