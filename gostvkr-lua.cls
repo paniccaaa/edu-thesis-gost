@@ -250,7 +250,7 @@
 \ifdefstring{\gostvkr@degree}{master}{\gostvkr@showreviewertrue}{}
 
 \newcommand{\gostvkr@ministry}{МИНИСТЕРСТВО ПРОСВЕЩЕНИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ}
-\newcommand{\gostvkr@universitylineone}{ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ}
+\newcommand{\gostvkr@universitylineone}{ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ\\ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ}
 \newcommand{\gostvkr@universitylinetwo}{«РОССИЙСКИЙ ГОСУДАРСТВЕННЫЙ}
 \newcommand{\gostvkr@universitylinethree}{ПЕДАГОГИЧЕСКИЙ УНИВЕРСИТЕТ им. А. И. ГЕРЦЕНА»}
 \newcommand{\gostvkr@direction}{09.03.01 Информатика и вычислительная техника}
@@ -264,7 +264,7 @@
 \newcommand{\gostvkr@reviewer}{Доктор педагогических наук, зав.\,кафедрой информатики и вычислительной техники\\Барахсанова Елизавета Афанасьевна}
 \newcommand{\gostvkr@city}{Санкт-Петербург}
 \newcommand{\gostvkr@year}{\the\year}
-\newcommand{\gostvkr@logopath}{assets/title-2025-logo.png}
+\newcommand{\gostvkr@logopath}{assets/logo-rgpu-herzen.png}
 
 \define@key{gostvkrsetup}{ministry}{\renewcommand{\gostvkr@ministry}{#1}}
 \define@key{gostvkrsetup}{universitylineone}{\renewcommand{\gostvkr@universitylineone}{#1}}
@@ -328,7 +328,7 @@
         \gostvkr@universitylinetwo\par
         \gostvkr@universitylinethree\par
         \vspace{0.5\baselineskip}
-        \includegraphics[width=43mm]{\gostvkr@logopath}
+        \includegraphics[width=44mm]{\gostvkr@logopath}
       \end{center}
 
       \vspace{\baselineskip}
@@ -344,7 +344,7 @@
       \vspace{\baselineskip}
 
       \begin{center}
-        \textbf{\gostvkr@worktype}\par
+        \fontsize{16pt}{16pt}\selectfont\textbf{\gostvkr@worktype}\par
         \vspace{\baselineskip}
         \gostvkr@theme
       \end{center}
@@ -353,6 +353,7 @@
 
       \begin{flushright}
         \begin{minipage}{0.58\textwidth}
+          \fontsize{12pt}{12pt}\selectfont
           Обучающегося \underline{\gostvkr@course}\ курса\par
           \underline{\gostvkr@studyform}\ формы обучения\par
           \gostvkr@fullname\par
@@ -373,6 +374,7 @@
       \vfill
 
       \begin{center}
+        \fontsize{11pt}{11pt}\selectfont
         \gostvkr@city\par
         \gostvkr@year
       \end{center}%
