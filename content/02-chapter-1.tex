@@ -69,16 +69,20 @@ Vegeta поддерживает только протокол HTTP и не им�
   \caption{Сравнительный анализ инструментов нагрузочного тестирования}
   \label{tab:ch1-tools}
   \small
-  \begin{tabular}{@{}p{0.14\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.12\linewidth}p{0.14\linewidth}p{0.18\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.14\linewidth}|p{0.13\linewidth}|p{0.13\linewidth}|p{0.12\linewidth}|p{0.14\linewidth}|p{0.18\linewidth}|}
+    \hline
     Инструмент     & Язык / рантайм & Протоколы      & Интерфейс & Зависимости       & Веб-интерфейс \\
-    \midrule
+    \hline
     Apache JMeter  & Java (JVM)     & HTTP, gRPC, FTP & GUI, CLI  & JVM               & Сторонние плагины \\
+    \hline
     Gatling        & Scala (JVM)    & HTTP            & CLI, HTML & JVM               & HTML-отчёт (статика) \\
+    \hline
     k6             & Go + JS        & HTTP, WS, gRPC  & CLI       & Node.js           & Grafana Cloud \\
+    \hline
     Vegeta         & Go             & HTTP            & CLI       & Нет               & Отсутствует \\
+    \hline
     hey            & Go             & HTTP            & CLI       & Нет               & Отсутствует \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -297,22 +301,32 @@ WebSocket~\cite{gorilla}, используется в тысячах произ�
   \centering
   \caption{Технологический стек инструмента Tsunami}
   \label{tab:ch1-stack}
-  \begin{tabular}{@{}p{0.22\linewidth}p{0.28\linewidth}p{0.42\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.22\linewidth}|p{0.28\linewidth}|p{0.42\linewidth}|}
+    \hline
     Компонент        & Технология                   & Обоснование выбора \\
-    \midrule
+    \hline
     Язык бэкенда     & Go                           & Горутины, статический исполняемый файл, кросс-компиляция \\
+    \hline
     CLI-фреймворк    & Cobra                        & Стандарт де-факто; субкоманды, хуки, генерация справки \\
+    \hline
     Rate limiting    & uber/ratelimit                & Leaky bucket; строго равномерный поток запросов \\
+    \hline
     WebSocket        & gorilla/websocket            & RFC~6455, зрелая библиотека \\
+    \hline
     gRPC             & google.golang.org/grpc       & Официальный Go gRPC-фреймворк от Google \\
+    \hline
     Компилятор proto & bufbuild/protocompile        & Динамическая компиляция .proto без protoc \\
+    \hline
     UI-фреймворк     & React + TypeScript           & Компонентность, экосистема, типобезопасность \\
+    \hline
     Графики          & Recharts                     & Декларативные SVG-графики, интеграция с React \\
+    \hline
     CSS-фреймворк    & Tailwind CSS                 & Утилитарный подход, малый итоговый объём сборки \\
+    \hline
     Встраивание SPA  & go:embed                     & Единый исполняемый файл без внешних статических активов \\
+    \hline
     Сборщик          & Vite                         & Быстрая сборка, нативная поддержка TypeScript \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -507,19 +521,26 @@ HTTP-сервер предоставляет следующие маршруты
   \centering
   \caption{Эндпоинты REST API инструмента Tsunami}
   \label{tab:ch1-api}
-  \begin{tabular}{@{}p{0.10\linewidth}p{0.34\linewidth}p{0.48\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.10\linewidth}|p{0.34\linewidth}|p{0.48\linewidth}|}
+    \hline
     Метод & Путь & Описание \\
-    \midrule
+    \hline
     POST & \texttt{/api/attack/start}            & Запуск нагрузочного теста \\
+    \hline
     POST & \texttt{/api/attack/stop}             & Остановка текущего теста \\
+    \hline
     GET  & \texttt{/api/attack/status}           & Текущий статус и метрики теста \\
+    \hline
     GET  & \texttt{/api/attack/results}          & Итоговые результаты после завершения \\
+    \hline
     GET  & \texttt{/api/attack/results/download} & Скачать результаты в формате JSON \\
+    \hline
     POST & \texttt{/api/proto/upload}            & Загрузить .proto-файл для gRPC \\
+    \hline
     WS   & \texttt{/ws/metrics}                  & WebSocket: стриминг метрик (50~мс) \\
+    \hline
     GET  & \texttt{/health}                      & Проверка работоспособности сервера \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 

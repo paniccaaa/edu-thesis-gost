@@ -77,15 +77,18 @@ func percentileIndex(sorted []time.Duration, p int) int {
   \caption{Метрики задержки, собираемые движком Tsunami}
   \label{tab:ch2-percentiles}
   \small
-  \begin{tabular}{@{}llp{0.22\linewidth}p{0.36\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|l|l|p{0.22\linewidth}|p{0.36\linewidth}|}
+    \hline
     Метрика & Обозн. & Формула индекса & Интерпретация \\
-    \midrule
+    \hline
     50-й перцентиль & P50 & $\lceil 0{,}50 \times N \rceil - 1$ & Медианная задержка; типична для большинства запросов \\
+    \hline
     90-й перцентиль & P90 & $\lceil 0{,}90 \times N \rceil - 1$ & Задержка при умеренной нагрузке \\
+    \hline
     95-й перцентиль & P95 & $\lceil 0{,}95 \times N \rceil - 1$ & Граница комфортного SLA для большинства сервисов \\
+    \hline
     99-й перцентиль & P99 & $\lceil 0{,}99 \times N \rceil - 1$ & Хвостовая задержка; критична для систем реального времени \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -103,18 +106,24 @@ func percentileIndex(sorted []time.Duration, p int) int {
   \caption{Сравнение конфигурации HTTP и gRPC движков Tsunami}
   \label{tab:ch2-http-grpc}
   \small
-  \begin{tabular}{@{}p{0.30\linewidth}p{0.31\linewidth}p{0.31\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.30\linewidth}|p{0.31\linewidth}|p{0.31\linewidth}|}
+    \hline
     Параметр & HTTP-движок & gRPC-движок \\
-    \midrule
+    \hline
     Воркеры (умолч.) & 50 & 50 \\
+    \hline
     Соединения (умолч.) & 100 & 4 \\
+    \hline
     Пул соединений & \texttt{http.Transport} (Keep-Alive) & Пул \texttt{grpc.ClientConn} \\
+    \hline
     Rate limiter & \texttt{go.uber.org/ratelimit} & \texttt{go.uber.org/ratelimit} \\
+    \hline
     Буфер \texttt{jobs} & $\max(\mathit{Workers}{\times}2,\,100)$ & $\max(\mathit{Workers}{\times}2,\,100)$ \\
+    \hline
     Разрешение метода & --- & .proto-файл / reflection \\
+    \hline
     Критерий успеха & \texttt{statusCode < 400} & \texttt{grpc.Code == OK} \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -157,20 +166,22 @@ Cobra обеспечивает декларативное описание ко�
   \caption{Подкоманды CLI-интерфейса Tsunami}
   \label{tab:ch2-commands}
   \small
-  \begin{tabular}{@{}p{0.14\linewidth}p{0.28\linewidth}>{\raggedright\arraybackslash}p{0.50\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.14\linewidth}|p{0.28\linewidth}|>{\raggedright\arraybackslash}p{0.50\linewidth}|}
+    \hline
     Команда & Назначение & Ключевые флаги \\
-    \midrule
+    \hline
     \texttt{attack} & HTTP нагрузочное тестирование &
       \texttt{--url}, \texttt{--rate}, \texttt{--duration}, \texttt{--workers},
       \texttt{--connections}, \texttt{--timeout}, \texttt{--method}, \texttt{--body},
-      \texttt{--headers}, \texttt{--output} \\[4pt]
+      \texttt{--headers}, \texttt{--output} \\
+    \hline
     \texttt{serve} & HTTP-сервер с REST API и WebSocket &
-      \texttt{--port} (по умолчанию 8080) \\[4pt]
+      \texttt{--port} (по умолчанию 8080) \\
+    \hline
     \texttt{grpc} & gRPC нагрузочное тестирование &
       \texttt{--target}, \texttt{--service}, \texttt{--method}, \texttt{--data},
       \texttt{--proto}, \texttt{--insecure} \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -228,19 +239,26 @@ var RateRegex = regexp.MustCompile(
   \caption{Эндпоинты REST API сервера Tsunami}
   \label{tab:ch2-api}
   \small
-  \begin{tabular}{@{}llp{0.44\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|l|l|p{0.44\linewidth}|}
+    \hline
     Метод & Путь & Назначение \\
-    \midrule
+    \hline
     POST & \texttt{/api/attack/start} & Запуск теста (HTTP или gRPC) \\
+    \hline
     POST & \texttt{/api/attack/stop} & Остановка активного теста \\
+    \hline
     GET  & \texttt{/api/attack/status} & Текущий статус и метрики сессии \\
+    \hline
     GET  & \texttt{/api/attack/results} & Финальные результаты теста \\
+    \hline
     GET  & \texttt{/api/attack/results/download} & Скачать результаты в формате JSON \\
+    \hline
     POST & \texttt{/api/proto/upload} & Загрузить \texttt{.proto}-файл для gRPC (до 10\,МБ) \\
+    \hline
     WS   & \texttt{/ws/metrics} & WebSocket-поток метрик в реальном времени \\
+    \hline
     GET  & \texttt{/health} & Проверка работоспособности сервера \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -377,21 +395,30 @@ WebSocket-клиент поддерживает авторереконнект: 
   \caption{Тестовые сценарии системы Tsunami}
   \label{tab:ch2-tests}
   \small
-  \begin{tabular}{@{}p{0.34\linewidth}p{0.11\linewidth}p{0.29\linewidth}p{0.17\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|p{0.34\linewidth}|p{0.11\linewidth}|p{0.29\linewidth}|p{0.17\linewidth}|}
+    \hline
     Название & Тип & Что проверяется & Результат \\
-    \midrule
+    \hline
     \texttt{CalculatePercentile/empty\_slice} & Юнит & Пустой срез задержек & Возврат 0 \\
+    \hline
     \texttt{CalculatePercentile/unsorted} & Юнит & Несортированный ввод & Корректный P50 \\
+    \hline
     \texttt{CalculatePercentile/p99\_100} & Юнит & P99 на 100 элементах & 99 мс \\
+    \hline
     \texttt{RunAttack\_BasicSuccess} & Интеграц. & Успешные запросы к httpbin & \texttt{Successes > 0} \\
+    \hline
     \texttt{RunAttack\_Timeout} & Интеграц. & Классификация таймаута & \texttt{Timeout} \\
+    \hline
     \texttt{RunAttack\_2xx\_success} & Интеграц. & Код 2xx --- успех & \texttt{Success = true} \\
+    \hline
     \texttt{RunAttack\_5xx\_failure} & Интеграц. & Код 5xx --- отказ & \texttt{Success = false} \\
+    \hline
     \texttt{HandleStartAttack} & Интеграц. & POST \texttt{/api/attack/start} & HTTP 200 \\
+    \hline
     \texttt{HandleStartAttack\_400} & Интеграц. & Невалидный запрос & HTTP 400 \\
+    \hline
     \texttt{HandleStopAttack} & Интеграц. & Цикл запуска и остановки & \texttt{stopped} \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -473,16 +500,20 @@ brews:
   \caption{Шаги CI/CD-пайплайна проекта Tsunami}
   \label{tab:ch2-cicd}
   \small
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}@{}}
-    \toprule
+  \begin{tabular}{|>{\raggedright\arraybackslash}p{0.23\linewidth}|>{\raggedright\arraybackslash}p{0.18\linewidth}|>{\raggedright\arraybackslash}p{0.26\linewidth}|>{\raggedright\arraybackslash}p{0.24\linewidth}|}
+    \hline
     Шаг (задание) & Workflow & Триггер / Зависимость & Артефакт \\
-    \midrule
+    \hline
     \texttt{unit-tests} & \texttt{ci.yml} & push / PR в \texttt{main} & Отчёт unit-тестов \\
+    \hline
     \texttt{integration-tests} & \texttt{ci.yml} & После \texttt{unit-tests} & Отчёт интеграц. тестов \\
+    \hline
     \texttt{build} & \texttt{ci.yml} & После \texttt{integration-tests} & Бинарный файл \\
+    \hline
     Сборка фронтенда & \texttt{release.yml} & Git-тег \texttt{v*} & Директория \texttt{dist/} \\
+    \hline
     GoReleaser & \texttt{release.yml} & После фронтенда & GitHub Release + Homebrew \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
