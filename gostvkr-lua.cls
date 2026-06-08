@@ -181,7 +181,7 @@
 \titleformat{name=\chapter,numberless}[block]{\normalfont\bfseries\normalsize\centering}{}{0pt}{\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{\baselineskip}{\baselineskip}
 \titleformat{\section}[block]{\normalfont\bfseries\normalsize\centering}{\thesection}{1em}{\MakeUppercase}
-\titlespacing*{\section}{0pt}{\baselineskip}{0.5\baselineskip}
+\titlespacing*{\section}{0pt}{\baselineskip}{3\baselineskip}
 \titleformat{\subsection}[block]{\normalfont\bfseries\normalsize}{\thesubsection}{1em}{}
 \titlespacing*{\subsection}{\parindent}{\baselineskip}{0.5\baselineskip}
 \titleformat{\subsubsection}[block]{\normalfont\bfseries\normalsize}{\thesubsubsection}{1em}{}
