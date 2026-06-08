@@ -180,6 +180,19 @@
 \titleformat{\chapter}[block]{\normalfont\bfseries\normalsize\centering}{\MakeUppercase{\chaptername}\ \thechapter.}{0.5em}{\MakeUppercase}
 \titleformat{name=\chapter,numberless}[block]{\normalfont\bfseries\normalsize\centering}{}{0pt}{\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{\baselineskip}{\baselineskip}
+
+% Параграфы (кроме первого в главе) начинаются с новой страницы — ГОСТ.
+\newif\ifgostvkr@firstsection
+\gostvkr@firstsectiontrue
+\pretocmd{\chapter}{\gostvkr@firstsectiontrue}{}{}
+\pretocmd{\section}{%
+  \ifgostvkr@firstsection
+    \gostvkr@firstsectionfalse
+  \else
+    \clearpage
+  \fi
+}{}{}
+
 \titleformat{\section}[block]{\normalfont\bfseries\normalsize\centering}{\thesection}{1em}{\MakeUppercase}
 \titlespacing*{\section}{0pt}{\baselineskip}{3\baselineskip}
 \titleformat{\subsection}[block]{\normalfont\bfseries\normalsize}{\thesubsection}{1em}{}
