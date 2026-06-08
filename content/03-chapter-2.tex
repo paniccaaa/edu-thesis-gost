@@ -79,7 +79,7 @@ func percentileIndex(sorted []time.Duration, p int) int {
   \small
   \begin{tabular}{|l|l|p{0.22\linewidth}|p{0.36\linewidth}|}
     \hline
-    Метрика & Обозн. & Формула индекса & Интерпретация \\
+    \textbf{Метрика} & \textbf{Обозн.} & \textbf{Формула индекса} & \textbf{Интерпретация} \\
     \hline
     50-й перцентиль & P50 & $\lceil 0{,}50 \times N \rceil - 1$ & Медианная задержка; типична для большинства запросов \\
     \hline
@@ -108,7 +108,7 @@ func percentileIndex(sorted []time.Duration, p int) int {
   \small
   \begin{tabular}{|p{0.30\linewidth}|p{0.31\linewidth}|p{0.31\linewidth}|}
     \hline
-    Параметр & HTTP-движок & gRPC-движок \\
+    \textbf{Параметр} & \textbf{HTTP-движок} & \textbf{gRPC-движок} \\
     \hline
     Исполнители (умолч.) & 50 & 50 \\
     \hline
@@ -168,7 +168,7 @@ Cobra обеспечивает декларативное описание ко�
   \small
   \begin{tabular}{|p{0.14\linewidth}|p{0.28\linewidth}|>{\raggedright\arraybackslash}p{0.50\linewidth}|}
     \hline
-    Команда & Назначение & Ключевые флаги \\
+    \textbf{Команда} & \textbf{Назначение} & \textbf{Ключевые флаги} \\
     \hline
     \texttt{attack} & HTTP нагрузочное тестирование &
       \texttt{--url}, \texttt{--rate}, \texttt{--duration}, \texttt{--workers},
@@ -241,7 +241,7 @@ var RateRegex = regexp.MustCompile(
   \small
   \begin{tabular}{|l|l|p{0.44\linewidth}|}
     \hline
-    Метод & Путь & Назначение \\
+    \textbf{Метод} & \textbf{Путь} & \textbf{Назначение} \\
     \hline
     POST & \texttt{/api/attack/start} & Запуск теста (HTTP или gRPC) \\
     \hline
@@ -397,7 +397,7 @@ WebSocket-клиент поддерживает автоматическое п�
   \small
   \begin{tabular}{|p{0.34\linewidth}|p{0.11\linewidth}|p{0.29\linewidth}|p{0.17\linewidth}|}
     \hline
-    Название & Тип & Что проверяется & Результат \\
+    \textbf{Название} & \textbf{Тип} & \textbf{Что проверяется} & \textbf{Результат} \\
     \hline
     \texttt{CalculatePercentile/empty\_slice} & Юнит & Пустой срез задержек & Возврат 0 \\
     \hline
@@ -503,7 +503,7 @@ brews:
   \small
   \begin{tabular}{|>{\raggedright\arraybackslash}p{0.23\linewidth}|>{\raggedright\arraybackslash}p{0.18\linewidth}|>{\raggedright\arraybackslash}p{0.26\linewidth}|>{\raggedright\arraybackslash}p{0.24\linewidth}|}
     \hline
-    Шаг (задание) & Workflow & Триггер / Зависимость & Артефакт \\
+    \textbf{Шаг (задание)} & \textbf{Workflow} & \textbf{Триггер / Зависимость} & \textbf{Артефакт} \\
     \hline
     \texttt{unit-tests} & \texttt{ci.yml} & push / PR в \texttt{main} & Отчёт unit-тестов \\
     \hline
